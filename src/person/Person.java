@@ -1,5 +1,7 @@
 package person;
 
+import java.util.Objects;
+
 public class Person {
 
     public int age;
@@ -16,18 +18,17 @@ public class Person {
         this.weight = weight;
     }
 
-    public boolean equals(Object obj) {
-        //check if method call is an object
-        //if not, cancel method
-        if(this == obj) return true;
-        if(obj == null || getClass()!= obj.getClass()) return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return age == person.age && height == person.height && weight == person.weight && name.equals(person.name) && surname.equals(person.surname);
+    }
 
-        //Cast Person to obj
-        Person p = (Person) obj;
-        if(name.equals(p.name) && surname.equals(p.surname)) {
-            return true;
-        }
-        return false;
+    @Override
+    public int hashCode() {
+        return Objects.hash(age, name, surname, height, weight);
     }
 
 
